@@ -1,23 +1,51 @@
 blueprint:
   name: Daily Scene Manager (DSM)
-  description: "# ⭐ Daily Scene Manager (DSM) ⭐\n### A comprehensive and highly
+  description: "# Daily Scene Manager (DSM)\n### A comprehensive and highly
   configurable blueprint to handle daily scenes management."
   source_url: https://github.com/glamirand/HomeAssistant/blob/main/blueprints/automation/daily_scene_manager.yaml
   domain: automation
   homeassistant:
     min_version: 2024.10.0
   input:
-    scene_helper:
-      name: "Scene Helpler"
-      description: "Helper used to store the last scene event. *Attention:* You will need to
-        manually create a [input_text](https://my.home-assistant.io/redirect/helpers/)
-        entity with a <ins>length of 100 chars</ins> for this."
-      default: []
-      selector:
-        entity:
-          domain:
-            - input_text
-          multiple: false
+    feature_section:
+      name: Automation Options
+      icon: mdi:cog
+      collapsed: true
+      input:
+        auto_options:
+          name: "\U0001F449 Automation Options"
+          description: "Define possible automation options"
+          default:
+            - auto_sun_evening_enabled
+          selector:
+            select:
+              options:
+                - label:
+                    ☀️ - Add sun elevation-based control to time-based switch to day
+                  value: auto_sun_day_enabled
+                - label:
+                    ☀️ - Add sun elevation-based control to time-based switch to evening
+                  value: auto_sun_evening_enabled
+              multiple: true
+              sort: false
+              custom_value: false
+              mode: list
+    helper_section:
+      name: Status Helper
+      icon: mdi:form-textbox
+      collapsed: true
+      input:
+        scene_helper:
+          name: "Scene Helpler"
+          description: "Helper used to store the last scene event. *Attention:* You will need to
+            manually create a [input_text](https://my.home-assistant.io/redirect/helpers/)
+            entity with a <ins>length of 100 chars</ins> for this."
+          default: []
+          selector:
+            entity:
+              domain:
+                - input_text
+              multiple: false
     external_triggers_section:
       name: External Triggers Configuration
       icon: mdi:fire
@@ -26,13 +54,7 @@ blueprint:
         external_triggers:
           name: ⇲ External Triggers
           description: 'Supported trigger ids are t_request_next_scene & t_force_next_scene'
-          default:
-            - trigger: event
-              event_type: dsm_request_next_scene
-              id: t_request_next_scene
-            - trigger: event
-              event_type: dsm_force_next_scene
-              id: t_force_next_scene
+          default: []
           selector:
             trigger:
     time_section_workday:
@@ -163,6 +185,70 @@ blueprint:
           default: '23:59:00'
           selector:
             time: {}
+    sun_section:
+      name: Sun Elevation Settings
+      description:
+        <br /> <center><code>Settings if the feature ‘☀️ - Enable sun elevation
+        control’ has been activated above.</code></center><br />
+      icon: mdi:weather-sunny
+      collapsed: true
+      input:
+        default_sun_sensor:
+          name: ☀️ Sun Sensor
+          description:
+            Which sensors provides attributes with current azimuth and
+            elevation of sun. I strongly suggest to use sun.sun ([Sun integration](https://www.home-assistant.io/integrations/sun/)).
+            Please make sure that the integration is activated and provides the attributes.<br /><br
+            /> <ins>A few examples of threshold values:</ins> <ul> <li>+18° Astronomical
+            Dusk</li> <li>+12° Nautical Dusk</li> <li>+6° Dusk</li> <li>0° Sunrise/Sunset
+            (Default)</li> <li>-6° Civil Dawn</li> <li>-12° Nautical Dawn</li> <li>-18°
+            Astronomical Dawn/Night</li> </ul>
+          default: sun.sun
+          selector:
+            entity:
+              filter:
+                - domain:
+                    - sun
+              multiple: false
+        sun_time_duration:
+          name: ☀️ Sun Time Duration
+          description:
+            Defines the time to given sun sensor must be stay above/below
+            the thresholds.
+          default: 30
+          selector:
+            number:
+              min: 0.0
+              max: 600.0
+              mode: slider
+              step: 1.0
+              unit_of_measurement: seconds
+        sun_elevation_day:
+          name: ☀️ Sun Elevation Value To Trigger Day
+          description:
+            The state will switch to <ins>day</ins> if the sun elevation is
+            over this value
+          default: 0
+          selector:
+            number:
+              min: -90.0
+              max: 90.0
+              unit_of_measurement: °
+              step: 0.1
+              mode: slider
+        sun_elevation_evening:
+          name: ☀️ Sun Elevation Value To Trigger Evening
+          description:
+            The cover will switch to <ins>evening</ins> if the sun elevation is
+            under this value
+          default: 0
+          selector:
+            number:
+              min: -90.0
+              max: 90.0
+              unit_of_measurement: °
+              step: 0.1
+              mode: slider
     actions_section:
       name: Actions
       description: <br /> <center><code>All these settings are optional</code></center><br/>
@@ -195,6 +281,7 @@ blueprint:
             action: {}
 trigger_variables:
   scene_helper: !input scene_helper
+  auto_options: !input auto_options
   time_morning_early: !input time_morning_early
   time_morning_early_non_workday: !input time_morning_early_non_workday
   time_morning_late: !input time_morning_late
@@ -213,6 +300,8 @@ trigger_variables:
   time_night_late_non_workday: !input time_night_late_non_workday
   workday_sensor_today: !input workday_sensor
   is_today_off: '{{ workday_sensor_today != [] and not workday_sensor_today }}'
+  is_sun_elevation_day: "{{ 'auto_sun_day_enabled' in auto_options }}"
+  is_sun_elevation_evening: "{{ 'auto_sun_evening_enabled' in auto_options }}"
   time_morning_early_today: '{{ time_morning_early_non_workday if is_today_off else time_morning_early }}'
   time_morning_late_today: '{{ time_morning_late_non_workday if is_today_off else time_morning_late }}'
   time_day_early_today: '{{ time_day_early_non_workday if is_today_off else time_day_early }}'
@@ -221,8 +310,10 @@ trigger_variables:
   time_evening_late_today: '{{ time_evening_late_non_workday if is_today_off else time_evening_late }}'
   time_night_early_today: '{{ time_night_early_non_workday if is_today_off else time_night_early }}'
   time_night_late_today: '{{ time_night_late_non_workday if is_today_off else time_night_late }}'
+  sun_elevation_day: !input sun_elevation_day
+  sun_elevation_evening: !input sun_elevation_evening
 variables:
-  version: 2025.07.20
+  version: 2025.07.23
   state_morning: "morning"
   state_day: "day"
   state_evening: "evening"
@@ -251,6 +342,14 @@ triggers:
     value_template: '{{ (time_day_early_today != time_day_late_today) and now() >= today_at(time_day_late_today) }}'
     id: t_day_late
   - platform: template
+    value_template:
+      "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_day)
+      > sun_elevation_day }}"
+    for:
+      seconds: !input sun_time_duration
+    enabled: "{{ is_sun_elevation_day_enabled and default_sun_sensor != [] }}"
+    id: t_day_sun
+  - platform: template
     value_template: '{{ (time_evening_early_today != time_evening_late_today) and now() >= today_at(time_evening_early_today) }}'
     id: t_evening_early
   - platform: template
@@ -260,8 +359,28 @@ triggers:
     value_template: '{{ (time_night_early_today != time_night_late_today) and now() >= today_at(time_night_early_today) }}'
     id: t_night_early
   - platform: template
+    value_template:
+      "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_evening)
+      > sun_elevation_evening }}"
+    for:
+      seconds: !input sun_time_duration
+    enabled: "{{ is_sun_elevation_evening_enabled and default_sun_sensor != [] }}"
+    id: t_evening_sun
+  - platform: template
     value_template: '{{ (time_night_early_today != time_night_late_today) and now() >= today_at(time_night_late_today) }}'
     id: t_night_late
+  - trigger: event
+    event_type: dsm_request
+    id: t_request_next_scene
+    event_data:
+      type: request
+      target: next
+  - trigger: event
+    event_type: dsm_request
+    id: t_force_next_scene
+    event_data:
+      type: force
+      target: next
   - triggers: !input external_triggers
 conditions: []
 actions:
@@ -288,7 +407,9 @@ actions:
           - or:
             - '{{ trigger.id == ''t_morning_late'' }}'
             - '{{ trigger.id == ''t_day_late'' }}'
+            - '{{ trigger.id == ''t_day_sun'' }}'
             - '{{ trigger.id == ''t_evening_late'' }}'
+            - '{{ trigger.id == ''t_evening_sun'' }}'
             - '{{ trigger.id == ''t_night_late'' }}'
             - '{{ trigger.id == ''t_request_next_scene'' }}'
             - '{{ trigger.id == ''t_force_next_scene'' }}'
@@ -318,6 +439,7 @@ actions:
                   - '{{ trigger.id == ''t_day_late'' }}'
                   - and:
                     - '{{ trigger.id == ''t_request_next_scene'' }}'
+                    - '{{ trigger.id == ''t_day_sun'' }}'
                     - '{{ in_day_trigger_range }}'
               sequence:
                 - variables:
@@ -334,6 +456,7 @@ actions:
                   - '{{ trigger.id == ''t_evening_late'' }}'
                   - and:
                     - '{{ trigger.id == ''t_request_next_scene'' }}'
+                    - '{{ trigger.id == ''t_evening_sun'' }}'
                     - '{{ in_evening_trigger_range }}'
               sequence:
                 - variables:
