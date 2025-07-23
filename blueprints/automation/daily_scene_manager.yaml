@@ -373,6 +373,8 @@ variables:
   in_night_trigger_range:
     "{{ now() >= today_at(time_night_early_today) and now()
     <= today_at(time_night_late_today) }}"
+  is_sun_above_day_treshold: "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_day) > sun_elevation_day }}"
+  is_sun_below_evening_treshold: "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_evening) < sun_elevation_evening }}"
 mode: single
 max_exceeded: silent
 triggers:
@@ -469,8 +471,10 @@ actions:
       - conditions:
           - or:
               - "{{ trigger.id == 't_morning_late' }}"
+              - "{{ trigger.id == 't_day_early' }}"
               - "{{ trigger.id == 't_day_late' }}"
               - "{{ trigger.id == 't_day_sun' }}"
+              - "{{ trigger.id == 't_evening_early' }}"
               - "{{ trigger.id == 't_evening_late' }}"
               - "{{ trigger.id == 't_evening_sun' }}"
               - "{{ trigger.id == 't_night_late' }}"
@@ -505,6 +509,9 @@ actions:
                               - "{{ trigger.id == 't_request_next_scene' }}"
                               - "{{ trigger.id == 't_day_sun' }}"
                           - "{{ in_day_trigger_range }}"
+                      - and:
+                          - "{{ trigger.id == 't_day_early' }}"
+                          - "{{ is_sun_above_day_treshold }}"
                 sequence:
                   - variables:
                       target_scene: "{{ state_day }}"
@@ -523,6 +530,9 @@ actions:
                               - "{{ trigger.id == 't_request_next_scene' }}"
                               - "{{ trigger.id == 't_evening_sun' }}"
                           - "{{ in_evening_trigger_range }}"
+                      - and:
+                          - "{{ trigger.id == 't_evening_early' }}"
+                          - "{{ is_sun_below_evening_treshold }}"
                 sequence:
                   - variables:
                       target_scene: "{{ state_evening }}"
