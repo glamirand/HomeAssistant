@@ -300,8 +300,8 @@ trigger_variables:
   time_night_late_non_workday: !input time_night_late_non_workday
   workday_sensor_today: !input workday_sensor
   is_today_off: '{{ workday_sensor_today != [] and not workday_sensor_today }}'
-  is_sun_elevation_day: "{{ 'auto_sun_day_enabled' in auto_options }}"
-  is_sun_elevation_evening: "{{ 'auto_sun_evening_enabled' in auto_options }}"
+  is_sun_elevation_day_enabled: "{{ 'auto_sun_day_enabled' in auto_options }}"
+  is_sun_elevation_evening_enabled: "{{ 'auto_sun_evening_enabled' in auto_options }}"
   time_morning_early_today: '{{ time_morning_early_non_workday if is_today_off else time_morning_early }}'
   time_morning_late_today: '{{ time_morning_late_non_workday if is_today_off else time_morning_late }}'
   time_day_early_today: '{{ time_day_early_non_workday if is_today_off else time_day_early }}'
