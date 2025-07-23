@@ -54,13 +54,7 @@ blueprint:
         external_triggers:
           name: ⇲ External Triggers
           description: 'Supported trigger ids are t_request_next_scene & t_force_next_scene'
-          default:
-            - trigger: event
-              event_type: dsm_request_next_scene
-              id: t_request_next_scene
-            - trigger: event
-              event_type: dsm_force_next_scene
-              id: t_force_next_scene
+          default: []
           selector:
             trigger:
     time_section_workday:
