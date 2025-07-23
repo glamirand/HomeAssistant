@@ -2,7 +2,7 @@ blueprint:
   name: Daily Scene Manager (DSM)
   description: "# Daily Scene Manager (DSM)\n### A comprehensive and highly
   configurable blueprint to handle daily scenes management."
-  #source_url: https://github.com/hvorragend/ha-blueprints/blob/main/blueprints/automation/cover_control_automation.yaml
+  source_url: https://github.com/glamirand/HomeAssistant/blob/main/blueprints/automation/daily_scene_manager.yaml
   domain: automation
   homeassistant:
     min_version: 2024.10.0
