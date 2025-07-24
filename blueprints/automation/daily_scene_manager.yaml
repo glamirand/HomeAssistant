@@ -331,7 +331,9 @@ variables:
   in_night_trigger_range: '{{ now() >= today_at(time_night_early_today) and now() <= today_at(time_night_late_today) }}'
   is_sun_above_day_treshold: '{{ state_attr(default_sun_sensor, ''elevation'') | float(default=sun_elevation_day) > sun_elevation_day }}'
   is_sun_below_evening_treshold: '{{ state_attr(default_sun_sensor, ''elevation'') | float(default=sun_elevation_evening) < sun_elevation_evening }}'
-mode: single
+#mode: single
+mode: queued
+max: 3
 max_exceeded: silent
 triggers:
 - platform: template
