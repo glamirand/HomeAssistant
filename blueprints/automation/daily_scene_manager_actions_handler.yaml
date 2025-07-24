@@ -77,13 +77,14 @@ variables:
   is_day_actions_enabled: '{{ ''auto_day_actions_enabled'' in auto_options }}'
   is_evening_actions_enabled: '{{ ''auto_evening_actions_enabled'' in auto_options }}'
   is_night_actions_enabled: '{{ ''auto_night_actions_enabled'' in auto_options }}'
-  is_first_trigger: '{{ trigger.data.new_state.state != trigger.data.old_state.state }}'
+  is_first_trigger: '{{ trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 mode: queued
 max: 10
 max_exceeded: silent
 triggers:
 - trigger: event
   event_type: dsm_state_updated
+  event_data: {}
   id: t_state_updated
 conditions: []
 actions:
@@ -95,28 +96,28 @@ actions:
         - choose:
             - alias: Morning Actions
               conditions:
-                - '{{ trigger.data.new_state.state == state_morning }}'
+                - '{{ trigger.event.data.new_state.state == state_morning }}'
                 - '{{ is_morning_actions_enabled }}'
               sequence:
                 - choose: []
                   default: !input actions_morning
             - alias: Day Actions
               conditions:
-                - '{{ trigger.data.new_state.state == state_day }}'
+                - '{{ trigger.event.data.new_state.state == state_day }}'
                 - '{{ is_day_actions_enabled }}'
               sequence:
                 - choose: []
                   default: !input actions_day
             - alias: Evening Actions
               conditions:
-                - '{{ trigger.data.new_state.state == state_evening }}'
+                - '{{ trigger.event.data.new_state.state == state_evening }}'
                 - '{{ is_evening_actions_enabled }}'
               sequence:
                 - choose: []
                   default: !input actions_evening
             - alias: Night Actions
               conditions:
-                - '{{ trigger.data.new_state.state == state_night }}'
+                - '{{ trigger.event.data.new_state.state == state_night }}'
                 - '{{ is_night_actions_enabled }}'
               sequence:
                 - choose: []
