@@ -20,7 +20,7 @@ blueprint:
           - auto_morning_actions_enabled
           - auto_day_actions_enabled
           - auto_evening_actions_enabled
-          - auto_nightactions_enabled
+          - auto_night_actions_enabled
           selector:
             select:
               options:
