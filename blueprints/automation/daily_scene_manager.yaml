@@ -528,4 +528,49 @@ actions:
         - *id002
         - choose: []
           default: !input action_night
-  default: []
+  default:
+    - choose:
+      - alias: Re-trigger morning scene
+        conditions:
+        - '{{ is_morning }}'
+        - '{{ trigger.id == ''t_request_next_scene'' }}'
+        sequence:
+        - variables:
+            target_scene: '{{ state_morning }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_morning
+      - alias: Re-trigger day scene
+        conditions:
+        - '{{ is_day }}'
+        - '{{ trigger.id == ''t_request_next_scene'' }}'
+        sequence:
+        - variables:
+            target_scene: '{{ state_day }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_day
+      - alias: Re-trigger evening scene
+        conditions:
+        - '{{ is_evening }}'
+        - '{{ trigger.id == ''t_request_next_scene'' }}'
+        sequence:
+        - variables:
+            target_scene: '{{ state_evening }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_evening
+      - alias: Re-trigger night scene
+        conditions:
+        - '{{ is_night }}'
+        - '{{ trigger.id == ''t_request_next_scene'' }}'
+        sequence:
+        - variables:
+            target_scene: '{{ state_night }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_night
