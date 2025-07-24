@@ -1,0 +1,123 @@
+blueprint:
+  name: Daily Scene Manager - Actions Handler (DSM-AH)
+  description: '# Daily Scene Manager Actions Handler (DSM-AH)
+
+    ### A comprehensive and highly configurable blueprint to handle actions for daily scenes.'
+  source_url: https://github.com/glamirand/HomeAssistant/blob/dev/blueprints/automation/daily_scene_manager_actions_handler.yaml
+  domain: automation
+  homeassistant:
+    min_version: 2024.10.0
+  input:
+    feature_section:
+      name: Automation Options
+      icon: mdi:cog
+      collapsed: true
+      input:
+        auto_options:
+          name: "\U0001F449 Automation Options"
+          description: Define possible automation options
+          default:
+          - auto_morning_actions_enabled
+          - auto_day_actions_enabled
+          - auto_evening_actions_enabled
+          - auto_nightactions_enabled
+          selector:
+            select:
+              options:
+              - label: "\U0001F7E1 - Enable morning actions"
+                value: auto_morning_actions_enabled
+              - label: "\U0001F7E0 - Enable day actions"
+                value: auto_day_actions_enabled
+              - label: "\U0001F534 - Enable evening actions"
+                value: auto_evening_actions_enabled
+              - label: "\U0001F535 - Enable night actions"
+                value: auto_night_actions_enabled
+              multiple: true
+              sort: false
+              custom_value: false
+              mode: list
+  actions_section:
+      name: Actions
+      description: <br /> <center><code>All these settings are optional</code></center><br/>
+      icon: mdi:run
+      collapsed: true
+      input:
+        actions_morning:
+          name: "\U0001F7E1 Morning Actions"
+          description: Action to run <ins>after</ins> switching to morning
+          default: []
+          selector:
+            action: {}
+        actions_day:
+          name: "\U0001F7E0 Day Actions"
+          description: Action to run <ins>after</ins> switching to day
+          default: []
+          selector:
+            action: {}
+        actions_evening:
+          name: "\U0001F534 Evening Actions"
+          description: Action to run <ins>after</ins> switching to evening
+          default: []
+          selector:
+            action: {}
+        actions_night:
+          name: "\U0001F535 Night Actions"
+          description: Action to run <ins>after</ins> switching to night
+          default: []
+          selector:
+            action: {}
+variables:
+  version: 2025.07.24
+  state_morning: morning
+  state_day: day
+  state_evening: evening
+  state_night: night
+  auto_options: !input auto_options
+  is_morning_actions_enabled: '{{ ''auto_morning_actions_enabled'' in auto_options }}'
+  is_day_actions_enabled: '{{ ''auto_day_actions_enabled'' in auto_options }}'
+  is_evening_actions_enabled: '{{ ''auto_evening_actions_enabled'' in auto_options }}'
+  is_night_actions_enabled: '{{ ''auto_night_actions_enabled'' in auto_options }}'
+  is_first_trigger: '{{ trigger.event_data.new_state.state != trigger.event_data.old_state.state }}'
+mode: queued
+max: 10
+max_exceeded: silent
+triggers:
+- trigger: event
+  event_type: dsm_state_updated
+  id: t_state_updated
+conditions: []
+actions:
+- choose:
+    - conditions:
+        - or:
+            - '{{ trigger.id == ''t_state_updated'' }}'
+      sequence:
+        - choose:
+            - alias: Morning Actions
+              conditions:
+                - '{{ trigger.event_data.new_state.state == state_morning }}'
+                - '{{ is_morning_actions_enabled }}'
+              sequence:
+                - choose: []
+                  default: !input actions_morning
+            - alias: Day Actions
+              conditions:
+                - '{{ trigger.event_data.new_state.state == state_day }}'
+                - '{{ is_day_actions_enabled }}'
+              sequence:
+                - choose: []
+                  default: !input actions_day
+            - alias: Evening Actions
+              conditions:
+                - '{{ trigger.event_data.new_state.state == state_evening }}'
+                - '{{ is_evening_actions_enabled }}'
+              sequence:
+                - choose: []
+                  default: !input actions_evening
+            - alias: Night Actions
+              conditions:
+                - '{{ trigger.event_data.new_state.state == state_night }}'
+                - '{{ is_night_actions_enabled }}'
+              sequence:
+                - choose: []
+                  default: !input actions_night
