@@ -454,123 +454,123 @@ actions:
       - '{{ trigger.id == ''t_force_next_scene'' }}'
     sequence:
     - choose:
-      - alias: To morning scene
-        conditions:
-        - '{{ is_night }}'
-        - or:
-          - '{{ trigger.id == ''t_force_next_scene'' }}'
-          - '{{ trigger.id == ''t_morning_late'' }}'
-          - and:
-            - '{{ trigger.id == ''t_request_next_scene'' }}'
-            - '{{ in_morning_trigger_range }}'
-        sequence:
-        - variables:
-            target_scene: '{{ state_morning }}'
-        - *id001
-        - *id002
-        - choose: []
-          default: !input action_morning
-      - alias: To day scene
-        conditions:
-        - '{{ is_morning }}'
-        - or:
-          - '{{ trigger.id == ''t_force_next_scene'' }}'
-          - '{{ trigger.id == ''t_day_late'' }}'
-          - and:
-            - or:
+        - alias: To morning scene
+          conditions:
+          - '{{ is_night }}'
+          - or:
+            - '{{ trigger.id == ''t_force_next_scene'' }}'
+            - '{{ trigger.id == ''t_morning_late'' }}'
+            - and:
               - '{{ trigger.id == ''t_request_next_scene'' }}'
-              - '{{ trigger.id == ''t_day_sun'' }}'
-            - '{{ in_day_trigger_range }}'
-          - and:
-            - '{{ trigger.id == ''t_day_early'' }}'
-            - '{{ is_sun_above_day_treshold }}'
-        sequence:
-        - variables:
-            target_scene: '{{ state_day }}'
-        - *id001
-        - *id002
-        - choose: []
-          default: !input action_day
-      - alias: To evening scene
-        conditions:
-        - '{{ is_day }}'
-        - or:
-          - '{{ trigger.id == ''t_force_next_scene'' }}'
-          - '{{ trigger.id == ''t_evening_late'' }}'
-          - and:
-            - or:
+              - '{{ in_morning_trigger_range }}'
+          sequence:
+          - variables:
+              target_scene: '{{ state_morning }}'
+          - *id001
+          - *id002
+          - choose: []
+            default: !input action_morning
+        - alias: To day scene
+          conditions:
+          - '{{ is_morning }}'
+          - or:
+            - '{{ trigger.id == ''t_force_next_scene'' }}'
+            - '{{ trigger.id == ''t_day_late'' }}'
+            - and:
+              - or:
+                - '{{ trigger.id == ''t_request_next_scene'' }}'
+                - '{{ trigger.id == ''t_day_sun'' }}'
+              - '{{ in_day_trigger_range }}'
+            - and:
+              - '{{ trigger.id == ''t_day_early'' }}'
+              - '{{ is_sun_above_day_treshold }}'
+          sequence:
+          - variables:
+              target_scene: '{{ state_day }}'
+          - *id001
+          - *id002
+          - choose: []
+            default: !input action_day
+        - alias: To evening scene
+          conditions:
+          - '{{ is_day }}'
+          - or:
+            - '{{ trigger.id == ''t_force_next_scene'' }}'
+            - '{{ trigger.id == ''t_evening_late'' }}'
+            - and:
+              - or:
+                - '{{ trigger.id == ''t_request_next_scene'' }}'
+                - '{{ trigger.id == ''t_evening_sun'' }}'
+              - '{{ in_evening_trigger_range }}'
+            - and:
+              - '{{ trigger.id == ''t_evening_early'' }}'
+              - '{{ is_sun_below_evening_treshold }}'
+          sequence:
+          - variables:
+              target_scene: '{{ state_evening }}'
+          - *id001
+          - *id002
+          - choose: []
+            default: !input action_evening
+        - alias: To night scene
+          conditions:
+          - '{{ is_evening }}'
+          - or:
+            - '{{ trigger.id == ''t_force_next_scene'' }}'
+            - '{{ trigger.id == ''t_night_late'' }}'
+            - and:
               - '{{ trigger.id == ''t_request_next_scene'' }}'
-              - '{{ trigger.id == ''t_evening_sun'' }}'
-            - '{{ in_evening_trigger_range }}'
-          - and:
-            - '{{ trigger.id == ''t_evening_early'' }}'
-            - '{{ is_sun_below_evening_treshold }}'
-        sequence:
-        - variables:
-            target_scene: '{{ state_evening }}'
-        - *id001
-        - *id002
-        - choose: []
-          default: !input action_evening
-      - alias: To night scene
-        conditions:
-        - '{{ is_evening }}'
-        - or:
-          - '{{ trigger.id == ''t_force_next_scene'' }}'
-          - '{{ trigger.id == ''t_night_late'' }}'
-          - and:
-            - '{{ trigger.id == ''t_request_next_scene'' }}'
-            - '{{ in_night_trigger_range }}'
-        sequence:
-        - variables:
-            target_scene: '{{ state_night }}'
-        - *id001
-        - *id002
-        - choose: []
-          default: !input action_night
-      default:
-        - choose:
-          - alias: Re-trigger morning scene
-            conditions:
-            - '{{ is_morning }}'
-            - '{{ trigger.id == ''t_request_next_scene'' }}'
-            sequence:
-            - variables:
-                target_scene: '{{ state_morning }}'
-            - *id001
-            - *id002
-            - choose: []
-              default: !input action_morning
-          - alias: Re-trigger day scene
-            conditions:
-            - '{{ is_day }}'
-            - '{{ trigger.id == ''t_request_next_scene'' }}'
-            sequence:
-            - variables:
-                target_scene: '{{ state_day }}'
-            - *id001
-            - *id002
-            - choose: []
-              default: !input action_day
-          - alias: Re-trigger evening scene
-            conditions:
-            - '{{ is_evening }}'
-            - '{{ trigger.id == ''t_request_next_scene'' }}'
-            sequence:
-            - variables:
-                target_scene: '{{ state_evening }}'
-            - *id001
-            - *id002
-            - choose: []
-              default: !input action_evening
-          - alias: Re-trigger night scene
-            conditions:
-            - '{{ is_night }}'
-            - '{{ trigger.id == ''t_request_next_scene'' }}'
-            sequence:
-            - variables:
-                target_scene: '{{ state_night }}'
-            - *id001
-            - *id002
-            - choose: []
-              default: !input action_night
+              - '{{ in_night_trigger_range }}'
+          sequence:
+          - variables:
+              target_scene: '{{ state_night }}'
+          - *id001
+          - *id002
+          - choose: []
+            default: !input action_night
+          default:
+            - choose:
+                - alias: Re-trigger morning scene
+                  conditions:
+                  - '{{ is_morning }}'
+                  - '{{ trigger.id == ''t_request_next_scene'' }}'
+                  sequence:
+                  - variables:
+                      target_scene: '{{ state_morning }}'
+                  - *id001
+                  - *id002
+                  - choose: []
+                    default: !input action_morning
+                - alias: Re-trigger day scene
+                  conditions:
+                  - '{{ is_day }}'
+                  - '{{ trigger.id == ''t_request_next_scene'' }}'
+                  sequence:
+                  - variables:
+                      target_scene: '{{ state_day }}'
+                  - *id001
+                  - *id002
+                  - choose: []
+                    default: !input action_day
+                - alias: Re-trigger evening scene
+                  conditions:
+                  - '{{ is_evening }}'
+                  - '{{ trigger.id == ''t_request_next_scene'' }}'
+                  sequence:
+                  - variables:
+                      target_scene: '{{ state_evening }}'
+                  - *id001
+                  - *id002
+                  - choose: []
+                    default: !input action_evening
+                - alias: Re-trigger night scene
+                  conditions:
+                  - '{{ is_night }}'
+                  - '{{ trigger.id == ''t_request_next_scene'' }}'
+                  sequence:
+                  - variables:
+                      target_scene: '{{ state_night }}'
+                  - *id001
+                  - *id002
+                  - choose: []
+                    default: !input action_night
