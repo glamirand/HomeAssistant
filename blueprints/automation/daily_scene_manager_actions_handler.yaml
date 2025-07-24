@@ -36,7 +36,7 @@ blueprint:
               sort: false
               custom_value: false
               mode: list
-  actions_section:
+    actions_section:
       name: Actions
       description: <br /> <center><code>All these settings are optional</code></center><br/>
       icon: mdi:run
