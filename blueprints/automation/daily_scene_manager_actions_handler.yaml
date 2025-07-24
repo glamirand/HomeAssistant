@@ -77,7 +77,7 @@ variables:
   is_day_actions_enabled: '{{ ''auto_day_actions_enabled'' in auto_options }}'
   is_evening_actions_enabled: '{{ ''auto_evening_actions_enabled'' in auto_options }}'
   is_night_actions_enabled: '{{ ''auto_night_actions_enabled'' in auto_options }}'
-  is_first_trigger: '{{ trigger.event_data.new_state.state != trigger.event_data.old_state.state }}'
+  is_first_trigger: '{{ trigger.data.new_state.state != trigger.data.old_state.state }}'
 mode: queued
 max: 10
 max_exceeded: silent
@@ -95,28 +95,28 @@ actions:
         - choose:
             - alias: Morning Actions
               conditions:
-                - '{{ trigger.event_data.new_state.state == state_morning }}'
+                - '{{ trigger.data.new_state.state == state_morning }}'
                 - '{{ is_morning_actions_enabled }}'
               sequence:
                 - choose: []
                   default: !input actions_morning
             - alias: Day Actions
               conditions:
-                - '{{ trigger.event_data.new_state.state == state_day }}'
+                - '{{ trigger.data.new_state.state == state_day }}'
                 - '{{ is_day_actions_enabled }}'
               sequence:
                 - choose: []
                   default: !input actions_day
             - alias: Evening Actions
               conditions:
-                - '{{ trigger.event_data.new_state.state == state_evening }}'
+                - '{{ trigger.data.new_state.state == state_evening }}'
                 - '{{ is_evening_actions_enabled }}'
               sequence:
                 - choose: []
                   default: !input actions_evening
             - alias: Night Actions
               conditions:
-                - '{{ trigger.event_data.new_state.state == state_night }}'
+                - '{{ trigger.data.new_state.state == state_night }}'
                 - '{{ is_night_actions_enabled }}'
               sequence:
                 - choose: []
