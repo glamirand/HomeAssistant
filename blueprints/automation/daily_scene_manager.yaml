@@ -1,8 +1,8 @@
 blueprint:
   name: Daily Scene Manager (DSM)
-  description: "# Daily Scene Manager (DSM)
+  description: '# Daily Scene Manager (DSM)
 
-    ### A comprehensive and highly configurable blueprint to handle daily scenes management."
+    ### A comprehensive and highly configurable blueprint to handle daily scenes management.'
   source_url: https://github.com/glamirand/HomeAssistant/blob/dev/blueprints/automation/daily_scene_manager.yaml
   domain: automation
   homeassistant:
@@ -17,18 +17,16 @@ blueprint:
           name: "\U0001F449 Automation Options"
           description: Define possible automation options
           default:
-            - auto_sun_evening_enabled
+          - auto_sun_evening_enabled
           selector:
             select:
               options:
-                - label:
-                    ☀️ - Add sun elevation-based control to time-based switch to
-                    day
-                  value: auto_sun_day_enabled
-                - label:
-                    ☀️ - Add sun elevation-based control to time-based switch to
-                    evening
-                  value: auto_sun_evening_enabled
+              - label: ☀️ - Add sun elevation-based control to time-based switch to
+                  day
+                value: auto_sun_day_enabled
+              - label: ☀️ - Add sun elevation-based control to time-based switch to
+                  evening
+                value: auto_sun_evening_enabled
               multiple: true
               sort: false
               custom_value: false
@@ -40,15 +38,14 @@ blueprint:
       input:
         scene_helper:
           name: Scene Helpler
-          description:
-            Helper used to store the last scene event. *Attention:* You
+          description: Helper used to store the last scene event. *Attention:* You
             will need to manually create a [input_text](https://my.home-assistant.io/redirect/helpers/)
             entity with a <ins>length of 100 chars</ins> for this.
           default: []
           selector:
             entity:
               domain:
-                - input_text
+              - input_text
               multiple: false
     external_triggers_section:
       name: External Triggers Configuration
@@ -68,8 +65,7 @@ blueprint:
       input:
         time_morning_early:
           name: "\U0001F7E1 Time For Morning - Early On Workdays"
-          description:
-            The earliest time at which the scene may switch to morning.
+          description: The earliest time at which the scene may switch to morning.
             The scene will switch to Morning if <ins>AFTER</ins> this time a manual
             request is triggered.
           default: 06:00:00
@@ -83,8 +79,7 @@ blueprint:
             time: {}
         time_day_early:
           name: "\U0001F7E0 Time For Day - Early On Workdays"
-          description:
-            The earliest time at which the scene may switch to Day. The
+          description: The earliest time at which the scene may switch to Day. The
             scene will switch to day if <ins>AFTER</ins> this time a manual request
             is triggered.
           default: 07:00:00
@@ -98,32 +93,30 @@ blueprint:
             time: {}
         time_evening_early:
           name: "\U0001F534 Time For Evening - Early On Workdays"
-          description:
-            The earliest time at which the scene may switch to Evening.
+          description: The earliest time at which the scene may switch to Evening.
             The scene will switch to evening if <ins>AFTER</ins> this time a manual
             request is triggered.
-          default: "18:00:00"
+          default: '18:00:00'
           selector:
             time: {}
         time_evening_late:
           name: "\U0001F534 Time For Evening - Late On Workdays"
           description: The latest time at which the scene may switch to Evening.
-          default: "19:30:00"
+          default: '19:30:00'
           selector:
             time: {}
         time_night_early:
           name: "\U0001F535 Time For Night - Early On Workdays"
-          description:
-            The earliest time at which the scene may switch to night. The
+          description: The earliest time at which the scene may switch to night. The
             scene will switch to night if <ins>AFTER</ins> this time a manual request
             is triggered.
-          default: "21:30:00"
+          default: '21:30:00'
           selector:
             time: {}
         time_night_late:
           name: "\U0001F535 Time For Night - Late On Workdays"
           description: The latest time at which the scene may switch to night.
-          default: "23:59:00"
+          default: '23:59:00'
           selector:
             time: {}
     time_section_non_workday:
@@ -133,23 +126,21 @@ blueprint:
       input:
         workday_sensor:
           name: "\U0001F4BC Sensor For Workday Today"
-          description:
-            "It may be desired to open a cover at a different time on work
+          description: 'It may be desired to open a cover at a different time on work
             days than on non-work days. The corresponding binary sensor can be defined
             here. If not set, the cover will open every time at time_up_early. <br
             /><br /> I recommend using the [Workday integration](https://www.home-assistant.io/integrations/workday/).
-            <br /><br /> Example: `binary_sensor.workday_today` <br /><br />`Optional`"
+            <br /><br /> Example: `binary_sensor.workday_today` <br /><br />`Optional`'
           default: []
           selector:
             entity:
               filter:
-                - domain:
-                    - binary_sensor
+              - domain:
+                - binary_sensor
               multiple: false
         time_morning_early_non_workday:
           name: "\U0001F7E1 Time For Morning - Early On Non-Workdays"
-          description:
-            The earliest time at which the scene may switch to morning.
+          description: The earliest time at which the scene may switch to morning.
             The scene will switch to Morning if <ins>AFTER</ins> this time a manual
             request is triggered.
           default: 07:00:00
@@ -163,8 +154,7 @@ blueprint:
             time: {}
         time_day_early_non_workday:
           name: "\U0001F7E0 Time For Day - Early On Non-Workdays"
-          description:
-            The earliest time at which the scene may switch to Day. The
+          description: The earliest time at which the scene may switch to Day. The
             scene will switch to day if <ins>AFTER</ins> this time a manual request
             is triggered.
           default: 08:00:00
@@ -178,46 +168,42 @@ blueprint:
             time: {}
         time_evening_early_non_workday:
           name: "\U0001F534 Time For Evening - Early On Non-Workdays"
-          description:
-            The earliest time at which the scene may switch to Evening.
+          description: The earliest time at which the scene may switch to Evening.
             The scene will switch to Evening if <ins>AFTER</ins> this time a manual
             request is triggered.
-          default: "17:00:00"
+          default: '17:00:00'
           selector:
             time: {}
         time_evening_late_non_workday:
           name: "\U0001F534 Time For Evening - Late On Non-Workdays"
           description: The latest time at which the scene may switch to Evening.
-          default: "19:30:00"
+          default: '19:30:00'
           selector:
             time: {}
         time_night_early_non_workday:
           name: "\U0001F535 Time For Night - Early On Non-Workdays"
-          description:
-            The earliest time at which the scene may switch to night. The
+          description: The earliest time at which the scene may switch to night. The
             scene will switch to night if <ins>AFTER</ins> this time a manual request
             is triggered.
-          default: "21:30:00"
+          default: '21:30:00'
           selector:
             time: {}
         time_night_late_non_workday:
           name: "\U0001F535 Time For Night - Late On Non-Workdays"
           description: The latest time at which the scene may switch to night.
-          default: "23:59:00"
+          default: '23:59:00'
           selector:
             time: {}
     sun_section:
       name: Sun Elevation Settings
-      description:
-        <br /> <center><code>Settings if the feature ‘☀️ - Enable sun elevation
+      description: <br /> <center><code>Settings if the feature ‘☀️ - Enable sun elevation
         control’ has been activated above.</code></center><br />
       icon: mdi:weather-sunny
       collapsed: true
       input:
         default_sun_sensor:
           name: ☀️ Sun Sensor
-          description:
-            Which sensors provides attributes with current azimuth and
+          description: Which sensors provides attributes with current azimuth and
             elevation of sun. I strongly suggest to use sun.sun ([Sun integration](https://www.home-assistant.io/integrations/sun/)).
             Please make sure that the integration is activated and provides the attributes.<br
             /><br /> <ins>A few examples of threshold values:</ins> <ul> <li>+18°
@@ -228,13 +214,12 @@ blueprint:
           selector:
             entity:
               filter:
-                - domain:
-                    - sun
+              - domain:
+                - sun
               multiple: false
         sun_time_duration:
           name: ☀️ Sun Time Duration
-          description:
-            Defines the time to given sun sensor must be stay above/below
+          description: Defines the time to given sun sensor must be stay above/below
             the thresholds.
           default: 30
           selector:
@@ -246,8 +231,7 @@ blueprint:
               unit_of_measurement: seconds
         sun_elevation_day:
           name: ☀️ Sun Elevation Value To Trigger Day
-          description:
-            The state will switch to <ins>day</ins> if the sun elevation
+          description: The state will switch to <ins>day</ins> if the sun elevation
             is over this value
           default: 0
           selector:
@@ -259,8 +243,7 @@ blueprint:
               mode: slider
         sun_elevation_evening:
           name: ☀️ Sun Elevation Value To Trigger Evening
-          description:
-            The cover will switch to <ins>evening</ins> if the sun elevation
+          description: The cover will switch to <ins>evening</ins> if the sun elevation
             is under this value
           default: 0
           selector:
@@ -320,34 +303,26 @@ trigger_variables:
   time_night_late: !input time_night_late
   time_night_late_non_workday: !input time_night_late_non_workday
   workday_sensor_today: !input workday_sensor
-  #is_today_off: "{{ workday_sensor_today != [] and is_state(workday_sensor_today,'off') }}"
   is_today_off: false
-  is_sun_elevation_day_enabled: "{{ 'auto_sun_day_enabled' in auto_options }}"
-  is_sun_elevation_evening_enabled: "{{ 'auto_sun_evening_enabled' in auto_options }}"
-  time_morning_early_today:
-    "{{ time_morning_early_non_workday if is_today_off else
-    time_morning_early }}"
-  time_morning_late_today:
-    "{{ time_morning_late_non_workday if is_today_off else
-    time_morning_late }}"
-  time_day_early_today:
-    "{{ time_day_early_non_workday if is_today_off else time_day_early
-    }}"
-  time_day_late_today:
-    "{{ time_day_late_non_workday if is_today_off else time_day_late
-    }}"
-  time_evening_early_today:
-    "{{ time_evening_early_non_workday if is_today_off else
-    time_evening_early }}"
-  time_evening_late_today:
-    "{{ time_evening_late_non_workday if is_today_off else
-    time_evening_late }}"
-  time_night_early_today:
-    "{{ time_night_early_non_workday if is_today_off else time_night_early
-    }}"
-  time_night_late_today:
-    "{{ time_night_late_non_workday if is_today_off else time_night_late
-    }}"
+  is_sun_elevation_day_enabled: '{{ ''auto_sun_day_enabled'' in auto_options }}'
+  is_sun_elevation_evening_enabled: '{{ ''auto_sun_evening_enabled'' in auto_options
+    }}'
+  time_morning_early_today: '{{ time_morning_early_non_workday if is_today_off else
+    time_morning_early }}'
+  time_morning_late_today: '{{ time_morning_late_non_workday if is_today_off else
+    time_morning_late }}'
+  time_day_early_today: '{{ time_day_early_non_workday if is_today_off else time_day_early
+    }}'
+  time_day_late_today: '{{ time_day_late_non_workday if is_today_off else time_day_late
+    }}'
+  time_evening_early_today: '{{ time_evening_early_non_workday if is_today_off else
+    time_evening_early }}'
+  time_evening_late_today: '{{ time_evening_late_non_workday if is_today_off else
+    time_evening_late }}'
+  time_night_early_today: '{{ time_night_early_non_workday if is_today_off else time_night_early
+    }}'
+  time_night_late_today: '{{ time_night_late_non_workday if is_today_off else time_night_late
+    }}'
   default_sun_sensor: !input default_sun_sensor
   sun_elevation_day: !input sun_elevation_day
   sun_elevation_evening: !input sun_elevation_evening
@@ -357,203 +332,217 @@ variables:
   state_day: day
   state_evening: evening
   state_night: night
-  is_morning: "{{ is_state(scene_helper, state_morning)}}"
-  is_day: "{{ is_state(scene_helper, state_day)}}"
-  is_evening: "{{ is_state(scene_helper, state_evening)}}"
-  is_night: "{{ is_state(scene_helper, state_night)}}"
-  in_morning_trigger_range:
-    "{{ now() >= today_at(time_morning_early_today) and now()
-    <= today_at(time_morning_late_today) }}"
-  in_day_trigger_range:
-    "{{ now() >= today_at(time_day_early_today) and now() <= today_at(time_day_late_today)
-    }}"
-  in_evening_trigger_range:
-    "{{ now() >= today_at(time_evening_early_today) and now()
-    <= today_at(time_evening_late_today) }}"
-  in_night_trigger_range:
-    "{{ now() >= today_at(time_night_early_today) and now()
-    <= today_at(time_night_late_today) }}"
-  is_sun_above_day_treshold: "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_day) > sun_elevation_day }}"
-  is_sun_below_evening_treshold: "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_evening) < sun_elevation_evening }}"
+  is_morning: '{{ is_state(scene_helper, state_morning)}}'
+  is_day: '{{ is_state(scene_helper, state_day)}}'
+  is_evening: '{{ is_state(scene_helper, state_evening)}}'
+  is_night: '{{ is_state(scene_helper, state_night)}}'
+  in_morning_trigger_range: '{{ now() >= today_at(time_morning_early_today) and now()
+    <= today_at(time_morning_late_today) }}'
+  in_day_trigger_range: '{{ now() >= today_at(time_day_early_today) and now() <= today_at(time_day_late_today)
+    }}'
+  in_evening_trigger_range: '{{ now() >= today_at(time_evening_early_today) and now()
+    <= today_at(time_evening_late_today) }}'
+  in_night_trigger_range: '{{ now() >= today_at(time_night_early_today) and now()
+    <= today_at(time_night_late_today) }}'
+  is_sun_above_day_treshold: '{{ state_attr(default_sun_sensor, ''elevation'') | float(default=sun_elevation_day)
+    > sun_elevation_day }}'
+  is_sun_below_evening_treshold: '{{ state_attr(default_sun_sensor, ''elevation'')
+    | float(default=sun_elevation_evening) < sun_elevation_evening }}'
 mode: single
 max_exceeded: silent
 triggers:
-  - platform: template
-    value_template:
-      "{{ (time_morning_early_today != time_morning_late_today) and now()
-      >= today_at(time_morning_early_today) }}"
-    id: t_morning_early
-  - platform: template
-    value_template:
-      "{{ (time_morning_early_today != time_morning_late_today) and now()
-      >= today_at(time_morning_late_today) }}"
-    id: t_morning_late
-  - platform: template
-    value_template:
-      "{{ (time_day_early_today != time_day_late_today) and now() >= today_at(time_day_early_today)
-      }}"
-    id: t_day_early
-  - platform: template
-    value_template:
-      "{{ (time_day_early_today != time_day_late_today) and now() >= today_at(time_day_late_today)
-      }}"
-    id: t_day_late
-  - platform: template
-    value_template:
-      "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_day)
-      > sun_elevation_day }}"
-    for:
-      seconds: !input sun_time_duration
-    enabled: "{{ is_sun_elevation_day_enabled and default_sun_sensor != [] }}"
-    id: t_day_sun
-  - platform: template
-    value_template:
-      "{{ (time_evening_early_today != time_evening_late_today) and now()
-      >= today_at(time_evening_early_today) }}"
-    id: t_evening_early
-  - platform: template
-    value_template:
-      "{{ (time_evening_early_today != time_evening_late_today) and now()
-      >= today_at(time_evening_late_today) }}"
-    id: t_evening_late
-  - platform: template
-    value_template:
-      "{{ (time_night_early_today != time_night_late_today) and now()
-      >= today_at(time_night_early_today) }}"
-    id: t_night_early
-  - platform: template
-    value_template:
-      "{{ state_attr(default_sun_sensor, 'elevation') | float(default=sun_elevation_evening)
-      < sun_elevation_evening }}"
-    for:
-      seconds: !input sun_time_duration
-    enabled: "{{ is_sun_elevation_evening_enabled and default_sun_sensor != [] }}"
-    id: t_evening_sun
-  - platform: template
-    value_template:
-      "{{ (time_night_early_today != time_night_late_today) and now()
-      >= today_at(time_night_late_today) }}"
-    id: t_night_late
-  - trigger: event
-    event_type: dsm_request
-    id: t_request_next_scene
-    event_data:
-      type: request
-      target: next
-  - trigger: event
-    event_type: dsm_request
-    id: t_force_next_scene
-    event_data:
-      type: force
-      target: next
-  - triggers: !input external_triggers
+- platform: template
+#  value_template: '{{ (time_morning_early_today != time_morning_late_today) and now() >= today_at(time_morning_early_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set early = time_morning_early_non_workday if is_today_off else time_morning_early %}
+    {% set late = time_morning_late_non_workday if is_today_off else time_morning_late %}
+    {{ early != late and now() >= today_at(early) }}"
+  id: t_morning_early
+- platform: template
+  #value_template: '{{ (time_morning_early_today != time_morning_late_today) and now() >= today_at(time_morning_late_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set time_compare = time_morning_late_non_workday if is_today_off else time_morning_late %}
+    {{ now() >= today_at(time_compare) }}"
+  id: t_morning_late
+- platform: template
+  #value_template: '{{ (time_day_early_today != time_day_late_today) and now() >= today_at(time_day_early_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set early = time_day_early_non_workday if is_today_off else time_day_early %}
+    {% set late = time_day_late_non_workday if is_today_off else time_day_late %}
+    {{ early != late and now() >= today_at(early) }}"
+  id: t_day_early
+- platform: template
+  #value_template: '{{ (time_day_early_today != time_day_late_today) and now() >= today_at(time_day_late_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set time_compare = time_day_late_non_workday if is_today_off else time_day_late %}
+    {{ now() >= today_at(time_compare) }}"
+  id: t_day_late
+- platform: template
+  value_template: '{{ state_attr(default_sun_sensor, ''elevation'') | float(default=sun_elevation_day) > sun_elevation_day }}'
+  for:
+    seconds: !input sun_time_duration
+  enabled: '{{ is_sun_elevation_day_enabled and default_sun_sensor != [] }}'
+  id: t_day_sun
+- platform: template
+  #value_template: '{{ (time_evening_early_today != time_evening_late_today) and now() >= today_at(time_evening_early_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set early = time_evening_early_non_workday if is_today_off else time_evening_early %}
+    {% set late = time_evening_late_non_workday if is_today_off else time_evening_late %}
+    {{ early != late and now() >= today_at(early) }}"
+  id: t_evening_early
+- platform: template
+  #value_template: '{{ (time_evening_early_today != time_evening_late_today) and now() >= today_at(time_evening_late_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set time_compare = time_evening_late_non_workday if is_today_off else time_evening_late %}
+    {{ now() >= today_at(time_compare) }}"
+  id: t_evening_late
+- platform: template
+  #value_template: '{{ (time_night_early_today != time_night_late_today) and now() >= today_at(time_night_early_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set early = time_night_early_non_workday if is_today_off else time_night_early %}
+    {% set late = time_night_late_non_workday if is_today_off else time_night_late %}
+    {{ early != late and now() >= today_at(early) }}"
+  id: t_night_early
+- platform: template
+  value_template: '{{ state_attr(default_sun_sensor, ''elevation'') | float(default=sun_elevation_evening) < sun_elevation_evening }}'
+  for:
+    seconds: !input sun_time_duration
+  enabled: '{{ is_sun_elevation_evening_enabled and default_sun_sensor != [] }}'
+  id: t_evening_sun
+- platform: template
+  #value_template: '{{ (time_night_early_today != time_night_late_today) and now() >= today_at(time_night_late_today) }}'
+  value_template:
+    "{% set is_today_off = workday_sensor_today != [] and is_state(workday_sensor_today, 'off') %}
+    {% set time_compare = time_night_late_non_workday if is_today_off else time_night_late %}
+    {{ now() >= today_at(time_compare) }}"
+  id: t_night_late
+- trigger: event
+  event_type: dsm_request
+  id: t_request_next_scene
+  event_data:
+    type: request
+    target: next
+- trigger: event
+  event_type: dsm_request
+  id: t_force_next_scene
+  event_data:
+    type: force
+    target: next
+- triggers: !input external_triggers
 conditions: []
 actions:
-  - variables:
-      select_scene_action: &id001
+- variables:
+    select_scene_action: &id001
+      sequence:
+      - action: input_text.set_value
+        data:
+          value: '{{ target_scene }}'
+        target:
+          entity_id: !input scene_helper
+    generate_update_event: &id002
+      sequence:
+      - event: dsm_state_updated
+        event_data:
+          old_state:
+            state: '{{ old_scene }}'
+          new_state:
+            state: '{{ target_scene }}'
+- variables:
+    old_scene: '{{ states(scene_helper) }}'
+- choose:
+  - conditions:
+    - or:
+      - '{{ trigger.id == ''t_morning_late'' }}'
+      - '{{ trigger.id == ''t_day_early'' }}'
+      - '{{ trigger.id == ''t_day_late'' }}'
+      - '{{ trigger.id == ''t_day_sun'' }}'
+      - '{{ trigger.id == ''t_evening_early'' }}'
+      - '{{ trigger.id == ''t_evening_late'' }}'
+      - '{{ trigger.id == ''t_evening_sun'' }}'
+      - '{{ trigger.id == ''t_night_late'' }}'
+      - '{{ trigger.id == ''t_request_next_scene'' }}'
+      - '{{ trigger.id == ''t_force_next_scene'' }}'
+    sequence:
+    - choose:
+      - alias: To morning scene
+        conditions:
+        - '{{ is_night }}'
+        - or:
+          - '{{ trigger.id == ''t_force_next_scene'' }}'
+          - '{{ trigger.id == ''t_morning_late'' }}'
+          - and:
+            - '{{ trigger.id == ''t_request_next_scene'' }}'
+            - '{{ in_morning_trigger_range }}'
         sequence:
-          - action: input_text.set_value
-            data:
-              value: "{{ target_scene }}"
-            target:
-              entity_id: !input scene_helper
-      generate_update_event: &id002
+        - variables:
+            target_scene: '{{ state_morning }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_morning
+      - alias: To day scene
+        conditions:
+        - '{{ is_morning }}'
+        - or:
+          - '{{ trigger.id == ''t_force_next_scene'' }}'
+          - '{{ trigger.id == ''t_day_late'' }}'
+          - and:
+            - or:
+              - '{{ trigger.id == ''t_request_next_scene'' }}'
+              - '{{ trigger.id == ''t_day_sun'' }}'
+            - '{{ in_day_trigger_range }}'
+          - and:
+            - '{{ trigger.id == ''t_day_early'' }}'
+            - '{{ is_sun_above_day_treshold }}'
         sequence:
-          - event: dsm_state_updated
-            event_data:
-              old_state:
-                state: "{{ old_scene }}"
-              new_state:
-                state: "{{ target_scene }}"
-  - variables:
-      old_scene: "{{ states(scene_helper) }}"
-  - choose:
-      - conditions:
-          - or:
-              - "{{ trigger.id == 't_morning_late' }}"
-              - "{{ trigger.id == 't_day_early' }}"
-              - "{{ trigger.id == 't_day_late' }}"
-              - "{{ trigger.id == 't_day_sun' }}"
-              - "{{ trigger.id == 't_evening_early' }}"
-              - "{{ trigger.id == 't_evening_late' }}"
-              - "{{ trigger.id == 't_evening_sun' }}"
-              - "{{ trigger.id == 't_night_late' }}"
-              - "{{ trigger.id == 't_request_next_scene' }}"
-              - "{{ trigger.id == 't_force_next_scene' }}"
+        - variables:
+            target_scene: '{{ state_day }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_day
+      - alias: To evening scene
+        conditions:
+        - '{{ is_day }}'
+        - or:
+          - '{{ trigger.id == ''t_force_next_scene'' }}'
+          - '{{ trigger.id == ''t_evening_late'' }}'
+          - and:
+            - or:
+              - '{{ trigger.id == ''t_request_next_scene'' }}'
+              - '{{ trigger.id == ''t_evening_sun'' }}'
+            - '{{ in_evening_trigger_range }}'
+          - and:
+            - '{{ trigger.id == ''t_evening_early'' }}'
+            - '{{ is_sun_below_evening_treshold }}'
         sequence:
-          - choose:
-              - alias: To morning scene
-                conditions:
-                  - "{{ is_night }}"
-                  - or:
-                      - "{{ trigger.id == 't_force_next_scene' }}"
-                      - "{{ trigger.id == 't_morning_late' }}"
-                      - and:
-                          - "{{ trigger.id == 't_request_next_scene' }}"
-                          - "{{ in_morning_trigger_range }}"
-                sequence:
-                  - variables:
-                      target_scene: "{{ state_morning }}"
-                  - *id001
-                  - *id002
-                  - choose: []
-                    default: !input action_morning
-              - alias: To day scene
-                conditions:
-                  - "{{ is_morning }}"
-                  - or:
-                      - "{{ trigger.id == 't_force_next_scene' }}"
-                      - "{{ trigger.id == 't_day_late' }}"
-                      - and:
-                          - or:
-                              - "{{ trigger.id == 't_request_next_scene' }}"
-                              - "{{ trigger.id == 't_day_sun' }}"
-                          - "{{ in_day_trigger_range }}"
-                      - and:
-                          - "{{ trigger.id == 't_day_early' }}"
-                          - "{{ is_sun_above_day_treshold }}"
-                sequence:
-                  - variables:
-                      target_scene: "{{ state_day }}"
-                  - *id001
-                  - *id002
-                  - choose: []
-                    default: !input action_day
-              - alias: To evening scene
-                conditions:
-                  - "{{ is_day }}"
-                  - or:
-                      - "{{ trigger.id == 't_force_next_scene' }}"
-                      - "{{ trigger.id == 't_evening_late' }}"
-                      - and:
-                          - or:
-                              - "{{ trigger.id == 't_request_next_scene' }}"
-                              - "{{ trigger.id == 't_evening_sun' }}"
-                          - "{{ in_evening_trigger_range }}"
-                      - and:
-                          - "{{ trigger.id == 't_evening_early' }}"
-                          - "{{ is_sun_below_evening_treshold }}"
-                sequence:
-                  - variables:
-                      target_scene: "{{ state_evening }}"
-                  - *id001
-                  - *id002
-                  - choose: []
-                    default: !input action_evening
-              - alias: To night scene
-                conditions:
-                  - "{{ is_evening }}"
-                  - or:
-                      - "{{ trigger.id == 't_force_next_scene' }}"
-                      - "{{ trigger.id == 't_night_late' }}"
-                      - and:
-                          - "{{ trigger.id == 't_request_next_scene' }}"
-                          - "{{ in_night_trigger_range }}"
-                sequence:
-                  - variables:
-                      target_scene: "{{ state_night }}"
-                  - *id001
-                  - *id002
-                  - choose: []
-                    default: !input action_night
-    default: []
+        - variables:
+            target_scene: '{{ state_evening }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_evening
+      - alias: To night scene
+        conditions:
+        - '{{ is_evening }}'
+        - or:
+          - '{{ trigger.id == ''t_force_next_scene'' }}'
+          - '{{ trigger.id == ''t_night_late'' }}'
+          - and:
+            - '{{ trigger.id == ''t_request_next_scene'' }}'
+            - '{{ in_night_trigger_range }}'
+        sequence:
+        - variables:
+            target_scene: '{{ state_night }}'
+        - *id001
+        - *id002
+        - choose: []
+          default: !input action_night
+  default: []
