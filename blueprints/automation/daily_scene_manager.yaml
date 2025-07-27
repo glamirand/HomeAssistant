@@ -335,6 +335,7 @@ variables:
 mode: queued
 max: 3
 max_exceeded: silent
+icon: mdi:weather-sunny
 triggers:
 - platform: template
 #  value_template: '{{ (time_morning_early_today != time_morning_late_today) and now() >= today_at(time_morning_early_today) }}'

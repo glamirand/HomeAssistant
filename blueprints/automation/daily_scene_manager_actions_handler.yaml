@@ -81,6 +81,7 @@ variables:
 mode: queued
 max: 10
 max_exceeded: silent
+icon: mdi:weather-sunny
 triggers:
 - trigger: event
   event_type: dsm_state_updated
