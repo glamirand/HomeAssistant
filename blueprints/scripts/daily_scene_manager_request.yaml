@@ -31,9 +31,6 @@ fields:
             value: evening
           - label: Night
             value: night
-variables:
-  request_type: !input request_type
-  request_target: !input request_target
 sequence:
 - event: dsm_request
   event_data:
