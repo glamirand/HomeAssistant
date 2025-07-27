@@ -8,6 +8,8 @@ fields:
   request_type:
     description: The type of the request to send.
     name: Request type
+    required: true
+    default: request
     selector:
       select:
         options:
@@ -18,6 +20,8 @@ fields:
   request_target:
     description: The target of the request to send.
     name: Request target
+    required: true
+    default: next
     selector:
       select:
         options:
