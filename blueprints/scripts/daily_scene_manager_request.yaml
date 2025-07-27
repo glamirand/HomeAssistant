@@ -1,0 +1,50 @@
+blueprint:
+  name: Daily Scene Manager Requests
+  description: 'This blueprint is used to add a script that will request scene change to Daily Scene Manager
+    I recommend setting the mode to parallel if you will use this script from more than one trigger'
+  domain: script
+  source_url: https://github.com/glamirand/HomeAssistant/blob/dev/blueprints/scripts/daily_scene_manager_request.yaml
+fields:
+  request_type:
+    description: The type of the request to send.
+    name: Request type
+    required: true
+    multiple: false
+    default: request
+    selector:
+      select:
+        options:
+          - label: Request
+            value: request
+          - label: Force
+            value: force
+  request_target:
+    description: The target of the request to send.
+    name: Request target
+    required: true
+    multiple: false
+    default: next
+    selector:
+      select:
+        options:
+          - label: Next
+            value: next
+          - label: Morning
+            value: morning
+          - label: Day
+            value: day
+          - label: Evening
+            value: evening
+          - label: Night
+            value: night
+variables:
+  request_type: !input request_type
+  request_target: !input request_target
+sequence:
+- event: dsm_request
+  event_data:
+    type: "{{ request_type }}"
+    target: "{{ request_target }}"
+mode: parallel
+max_exceeded: silent
+icon: mdi:weather-sunny
