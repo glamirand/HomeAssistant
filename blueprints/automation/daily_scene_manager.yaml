@@ -316,7 +316,7 @@ trigger_variables:
   sun_elevation_day: !input sun_elevation_day
   sun_elevation_evening: !input sun_elevation_evening
 variables:
-  version: 2025.07.24
+  version: 2025.07.27
   state_morning: morning
   state_day: day
   state_evening: evening
