@@ -302,17 +302,8 @@ trigger_variables:
   time_night_late: !input time_night_late
   time_night_late_non_workday: !input time_night_late_non_workday
   workday_sensor_today: !input workday_sensor
-  is_today_off: false
   is_sun_elevation_day_enabled: '{{ ''auto_sun_day_enabled'' in auto_options }}'
   is_sun_elevation_evening_enabled: '{{ ''auto_sun_evening_enabled'' in auto_options }}'
-  time_morning_early_today: '{{ time_morning_early_non_workday if is_today_off else time_morning_early }}'
-  time_morning_late_today: '{{ time_morning_late_non_workday if is_today_off else time_morning_late }}'
-  time_day_early_today: '{{ time_day_early_non_workday if is_today_off else time_day_early }}'
-  time_day_late_today: '{{ time_day_late_non_workday if is_today_off else time_day_late }}'
-  time_evening_early_today: '{{ time_evening_early_non_workday if is_today_off else time_evening_early }}'
-  time_evening_late_today: '{{ time_evening_late_non_workday if is_today_off else time_evening_late }}'
-  time_night_early_today: '{{ time_night_early_non_workday if is_today_off else time_night_early }}'
-  time_night_late_today: '{{ time_night_late_non_workday if is_today_off else time_night_late }}'
   default_sun_sensor: !input default_sun_sensor
   sun_elevation_day: !input sun_elevation_day
   sun_elevation_evening: !input sun_elevation_evening
@@ -326,6 +317,15 @@ variables:
   is_day: '{{ is_state(scene_helper, state_day)}}'
   is_evening: '{{ is_state(scene_helper, state_evening)}}'
   is_night: '{{ is_state(scene_helper, state_night)}}'
+  is_today_off: '{{ workday_sensor_today != [] and is_state(workday_sensor_today, 'off') }}'
+  time_morning_early_today: '{{ time_morning_early_non_workday if is_today_off else time_morning_early }}'
+  time_morning_late_today: '{{ time_morning_late_non_workday if is_today_off else time_morning_late }}'
+  time_day_early_today: '{{ time_day_early_non_workday if is_today_off else time_day_early }}'
+  time_day_late_today: '{{ time_day_late_non_workday if is_today_off else time_day_late }}'
+  time_evening_early_today: '{{ time_evening_early_non_workday if is_today_off else time_evening_early }}'
+  time_evening_late_today: '{{ time_evening_late_non_workday if is_today_off else time_evening_late }}'
+  time_night_early_today: '{{ time_night_early_non_workday if is_today_off else time_night_early }}'
+  time_night_late_today: '{{ time_night_late_non_workday if is_today_off else time_night_late }}'
   in_morning_trigger_range: '{{ now() >= today_at(time_morning_early_today) and now() <= today_at(time_morning_late_today) }}'
   in_day_trigger_range: '{{ now() >= today_at(time_day_early_today) and now() <= today_at(time_day_late_today) }}'
   in_evening_trigger_range: '{{ now() >= today_at(time_evening_early_today) and now() <= today_at(time_evening_late_today) }}'
