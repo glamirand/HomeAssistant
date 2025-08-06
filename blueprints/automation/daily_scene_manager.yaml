@@ -5,6 +5,7 @@ blueprint:
     ### A comprehensive and highly configurable blueprint to handle daily scenes management.'
   source_url: https://github.com/glamirand/HomeAssistant/blob/dev/blueprints/automation/daily_scene_manager.yaml
   domain: automation
+  author: Gaël LAMIRAND
   homeassistant:
     min_version: 2024.10.0
   input:

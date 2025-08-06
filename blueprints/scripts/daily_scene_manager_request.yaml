@@ -3,6 +3,7 @@ blueprint:
   description: 'This blueprint is used to add a script that will request scene change to Daily Scene Manager
     I recommend setting the mode to parallel if you will use this script from more than one trigger'
   domain: script
+  author: Gaël LAMIRAND
   source_url: https://github.com/glamirand/HomeAssistant/blob/dev/blueprints/scripts/daily_scene_manager_request.yaml
 fields:
   request_type:

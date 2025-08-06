@@ -5,6 +5,7 @@ blueprint:
     ### A comprehensive and highly configurable blueprint to handle actions for daily scenes.'
   source_url: https://github.com/glamirand/HomeAssistant/blob/dev/blueprints/automation/daily_scene_manager_actions_handler.yaml
   domain: automation
+  author: Gaël LAMIRAND
   homeassistant:
     min_version: 2024.10.0
   input:
