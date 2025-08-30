@@ -68,7 +68,7 @@ blueprint:
           selector:
             action: {}
 variables:
-  version: 2025.07.27
+  version: 2025.08.30
   state_morning: morning
   state_day: day
   state_evening: evening
