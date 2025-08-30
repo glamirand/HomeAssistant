@@ -487,6 +487,7 @@ actions:
                   - and:
                     - '{{ trigger.id == ''t_day_early'' }}'
                     - '{{ is_sun_above_day_treshold }}'
+                    - '{{ is_sun_elevation_day_enabled }}'
               sequence:
                 - variables:
                     target_scene: '{{ state_day }}'
@@ -508,6 +509,7 @@ actions:
                   - and:
                     - '{{ trigger.id == ''t_evening_early'' }}'
                     - '{{ is_sun_below_evening_treshold }}'
+                    - '{{ is_sun_elevation_evening_enabled }}'
               sequence:
                 - variables:
                     target_scene: '{{ state_evening }}'
