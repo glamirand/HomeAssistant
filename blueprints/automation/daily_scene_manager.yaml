@@ -308,7 +308,7 @@ trigger_variables:
   sun_elevation_day: !input sun_elevation_day
   sun_elevation_evening: !input sun_elevation_evening
 variables:
-  version: 2025.08.30
+  version: 2026.09.22
   state_morning: morning
   state_day: day
   state_evening: evening
@@ -440,6 +440,7 @@ actions:
             state: '{{ old_scene }}'
           new_state:
             state: '{{ target_scene }}'
+            is_today_off: '{{is_today_off}}'
 - variables:
     old_scene: '{{ states(scene_helper) }}'
 - choose:
